@@ -1,0 +1,39 @@
+{
+    "TAEE4": {
+        "2020": {
+            "quantidade": 25,
+            "custo_total": 234.21,
+            "preco_medio": 9.37
+        },
+        "2021": {
+            "quantidade": 70,
+            "custo_total": 705.95,
+            "preco_medio": 10.09
+        },
+        "2022": {
+            "quantidade": 70,
+            "custo_total": 705.95,
+            "preco_medio": 10.09
+        },
+        "2023": {
+            "quantidade": 70,
+            "custo_total": 705.95,
+            "preco_medio": 10.09
+        },
+        "2024": {
+            "quantidade": 100,
+            "custo_total": 1050.75,
+            "preco_medio": 10.51
+        },
+        "2025": {
+            "quantidade": 100,
+            "custo_total": 1050.75,
+            "preco_medio": 10.51
+        },
+        "2026": {
+            "quantidade": 119,
+            "custo_total": 1295.92,
+            "preco_medio": 10.89
+        }
+    }
+}

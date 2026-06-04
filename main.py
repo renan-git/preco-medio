@@ -1,7 +1,9 @@
 import pandas as pd
+import time
+import json
 
-compras = pd.read_csv('acoes/BBAS3/compras.csv')
-vendas = pd.read_csv('acoes/BBAS3/vendas.csv')
+compras = pd.read_csv('compras.csv')
+vendas = pd.read_csv('vendas.csv')
 
 compras['tipo'] = 'COMPRA'
 vendas['tipo'] = 'VENDA'
@@ -53,12 +55,23 @@ for ativo in carteira.values():
     ativo['custo_total'] = round(ativo['custo_total'], 2)
     ativo['preco_medio'] = round(ativo['preco_medio'], 2)
 
-
+anos_operacoes = []
 for ativo, anos in historico.items():
     for ano, dados in anos.items():
-        dados['custo_total'] = round(dados['custo_total'],2)
-        dados['preco_medio'] = round(dados['preco_medio'],2)
+        anos_operacoes.append(ano)
+        dados['custo_total'] = round(dados['custo_total'], 2)
+        dados['preco_medio'] = round(dados['preco_medio'], 2)
+    for ano in range(anos_operacoes[0], time.localtime().tm_year+1):
+        if ano in historico[ativo]:
+            continue
+        else:
+            historico[ativo][ano] = historico[ativo][ano-1]
+    historico[ativo] = dict(sorted(historico[ativo].items()))
 
+with open('carteira.json', 'w') as file:
+    json.dump(carteira, file, indent=4)
 print(carteira)
 
+with open('historico.json', 'w') as file:
+    json.dump(historico, file, indent=4)
 print(historico)
