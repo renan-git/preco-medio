@@ -2,8 +2,8 @@ import pandas as pd
 import time
 import json
 
-compras = pd.read_csv('compras.csv')
-vendas = pd.read_csv('vendas.csv')
+compras = pd.read_csv('acoes/ITSA4/compras.csv')
+vendas = pd.read_csv('acoes/ITSA4/vendas.csv')
 
 compras['tipo'] = 'COMPRA'
 vendas['tipo'] = 'VENDA'
@@ -57,15 +57,14 @@ for ativo in carteira.values():
 
 anos_operacoes = []
 for ativo, anos in historico.items():
-    for ano, dados in anos.items():
-        anos_operacoes.append(ano)
-        dados['custo_total'] = round(dados['custo_total'], 2)
-        dados['preco_medio'] = round(dados['preco_medio'], 2)
-    for ano in range(anos_operacoes[0], time.localtime().tm_year+1):
-        if ano in historico[ativo]:
-            continue
-        else:
-            historico[ativo][ano] = historico[ativo][ano-1]
+    anos_ordenados = sorted(anos.keys())
+    for i in range(len(anos_ordenados) - 1):
+        ano_atual = anos_ordenados[i]
+        proximo_ano = anos_ordenados[i + 1]
+        if proximo_ano - ano_atual > 1:
+            for ano_faltante in range(ano_atual + 1, proximo_ano):
+                historico[ativo][ano_faltante] = (historico[ativo][ano_atual].copy())
+
     historico[ativo] = dict(sorted(historico[ativo].items()))
 
 with open('carteira.json', 'w') as file:
