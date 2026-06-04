@@ -2,8 +2,8 @@ import pandas as pd
 from Carteira import Carteira
 from Historico import Historico
 
-compras = pd.read_csv('acoes/SULA11_RDOR3/compras.csv')
-vendas = pd.read_csv('acoes/SULA11_RDOR3/vendas.csv')
+compras = pd.read_csv('compras.csv')
+vendas = pd.read_csv('vendas.csv')
 
 compras['tipo'] = 'COMPRA'
 vendas['tipo'] = 'VENDA'
